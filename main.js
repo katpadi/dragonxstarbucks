@@ -34,7 +34,7 @@ var parent = document.querySelector('#screen');
 var game = new Phaser.Game(
     320,
     568,
-    Phaser.AUTO,
+    Phaser.CANVAS,
     parent,
     state
 );
