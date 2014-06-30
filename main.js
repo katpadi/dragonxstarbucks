@@ -166,7 +166,7 @@ function create() {
             font: '15px "Press Start 2P"',
             fill: '#04529C',
             stroke: '#FFCC33',
-            strokeThickness: 8,
+            strokeThickness: 6,
             align: 'center'
         }
     );
@@ -224,7 +224,7 @@ function reset() {
     gameOver = false;
     score = 0;
     //credits.renderable = true;
-    titleText.setText("\n\nDragon x Starbucks\n\nThe\nCoffee\nSlayer");
+    titleText.setText("\n\nDragon x Starbucks\n\nTHE\nCOFF33\nSLAY3R");
     instText.setText("TOUCH TO\nFLAP WINGS");
     titleText.renderable = true;
     bigpack.renderable = true;
