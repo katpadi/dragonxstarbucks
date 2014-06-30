@@ -92,20 +92,6 @@ var gameStarted,
 
 function theDreEffect() {
 
-    boomText = game.add.text(
-            game.world.width / 2,
-            game.world.height / 3,
-            "",
-            {
-                font: '16px "Press Start 2P"',
-                fill: '#ff000',
-                stroke: '#000',
-                strokeThickness: 4,
-                align: 'center'
-            }
-        );
-    boomText.setText("THE DRE EFFECT!!!");
-
     emitter = game.add.emitter(0, 0, 500);
     emitter.makeParticles('dre');
     emitter.gravity = 10;
@@ -165,6 +151,21 @@ function create() {
         }
     );
     highScoreText.anchor.setTo(0.5, 0.5);
+
+    // Add game over text
+    boomText = game.add.text(
+        game.world.width / 2,
+        game.world.height / 3,
+        "",
+        {
+            font: '12px "Press Start 2P"',
+            fill: '#fff',
+            stroke: '#000',
+            strokeThickness: 4,
+            align: 'center'
+        }
+    );
+    boomText.anchor.setTo(0.5, 0.5);
 
     // Add score text
     scoreText = game.add.text(
@@ -363,7 +364,7 @@ function spawnTowers() {
 function addScore(_, inv) {
     invs.remove(inv); // This removes the pack after getting it
     score += 1;
-    scoreText.setText(score  + " cups");
+    boomText.setText("Good Job!!!");
     theDreEffect();
     scoreSnd.play();
 }
