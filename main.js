@@ -86,12 +86,15 @@ var gameStarted,
     scoreSnd,
     hurtSnd,
     towersTimer,
-    tae,
+    tae, // To do :(
     emitter,
-    cloudsTimer;
+    cloudsTimer,
+    shakeWorld = 0,
+    shakeWorldMax = 18,
+    shakeWorldTime = 0,
+    shakeWorldTimeMax = 40;
 
 function theDreEffect() {
-
     emitter = game.add.emitter(0, 0, 500);
     emitter.makeParticles('dre');
     emitter.gravity = 10;
@@ -364,7 +367,8 @@ function spawnTowers() {
 function addScore(_, inv) {
     invs.remove(inv); // This removes the pack after getting it
     score += 1;
-    boomText.setText("Good Job!!!");
+    // MAKE IT SHAKE!!!
+    shakeWorldTime = shakeWorldTimeMax;
     theDreEffect();
     scoreSnd.play();
 }
@@ -444,6 +448,19 @@ function update() {
         });
         // Update tower timer
         towersTimer.update();
+
+        // Shake! Body body dancer!
+        if (shakeWorldTime > 0) {
+           var magnitude = ( shakeWorldTime / shakeWorldTimeMax ) * shakeWorldMax;
+           var rand1 = game.rnd.integerInRange(-magnitude,magnitude);
+           var rand2 = game.rnd.integerInRange(-magnitude,magnitude);
+            game.world.setBounds(rand1, rand2, game.width + rand1, game.height + rand2);
+            shakeWorldTime--;
+            if (shakeWorldTime == 0) {
+                game.world.setBounds(0, 0, game.width,game.height); // normalize after shake?
+            }
+        }
+
     } else {
         birdie.y = (game.world.height / 2) + 8 * Math.cos(game.time.now / 200);
     }
