@@ -48,6 +48,7 @@ function preload() {
         image: {
             bigpack: ['assets/bigpack.png'],
             winpack: ['assets/sb.png'],
+            dre: ['assets/dre.jpg'],
             tower:   ['assets/tower.png'],
             fence:   ['assets/fence.png']
         },
@@ -86,8 +87,8 @@ var gameStarted,
     hurtSnd,
     towersTimer,
     tae,
+    emitter,
     cloudsTimer;
-
 function create() {
     // Draw bg
     bg = game.add.graphics(0, 0);
@@ -117,9 +118,10 @@ function create() {
     // Add a big pack here...
     bigpack=game.add.sprite(150, 230, 'bigpack');
 
-    tae = game.add.bitmapData(320, 568);
-    tae.context.fillStyle = '#000';
-    game.add.sprite(0, -15, tae);
+    emitter = game.add.emitter(0, 0, 200);
+    emitter.makeParticles('dre');
+    emitter.gravity = 5;
+    emitter.start(true, 2000, 0, 10);
 
     // Add birdie
     birdie = game.add.sprite(0, 0, 'birdie');
@@ -379,10 +381,6 @@ function update() {
         // Make birdie dive
         var dvy = FLAP + birdie.body.velocity.y;
         birdie.angle = (90 * dvy / FLAP) - 180;
-
-        // Nagtatae
-        tae.context.fillRect(birdie.x, birdie.y, 2, 2);
-        tae.dirty = true;
 
         if (birdie.angle < -30) {
             birdie.angle = -30;
