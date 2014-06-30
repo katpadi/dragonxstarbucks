@@ -47,7 +47,7 @@ function preload() {
         },
         image: {
             bigpack: ['assets/bigpack.jpg'],
-            winpack: ['assets/pack.jpg'],
+            winpack: ['assets/sb.png'],
             tower:   ['assets/tower.png'],
             fence:   ['assets/fence.png']
         },
@@ -200,7 +200,7 @@ function create() {
             align: 'center'
         }
     );
-    gameOverText.setText("Choose\nThe\nBetter Black");
+    gameOverText.setText("Oops.\nToo Much\nCoffee!");
     gameOverText.anchor.setTo(0.5, 0.5);
     gameOverText.renderable = false;
 
