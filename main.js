@@ -34,7 +34,7 @@ var parent = document.querySelector('#screen');
 var game = new Phaser.Game(
     320,
     568,
-    Phaser.CANVAS,
+    Phaser.AUTO,
     parent,
     state
 );
@@ -85,6 +85,7 @@ var gameStarted,
     scoreSnd,
     hurtSnd,
     towersTimer,
+    tae,
     cloudsTimer;
 
 function create() {
@@ -115,6 +116,10 @@ function create() {
     invs = game.add.group();
     // Add a big pack here...
     bigpack=game.add.sprite(150, 230, 'bigpack');
+
+    tae = game.add.bitmapData(320, 568);
+    tae.context.fillStyle = '#000';
+    game.add.sprite(0, -15, tae);
 
     // Add birdie
     birdie = game.add.sprite(0, 0, 'birdie');
@@ -374,6 +379,11 @@ function update() {
         // Make birdie dive
         var dvy = FLAP + birdie.body.velocity.y;
         birdie.angle = (90 * dvy / FLAP) - 180;
+
+        // Nagtatae
+        tae.context.fillRect(birdie.x, birdie.y, 2, 2);
+        tae.dirty = true;
+
         if (birdie.angle < -30) {
             birdie.angle = -30;
         }
