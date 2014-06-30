@@ -89,6 +89,13 @@ var gameStarted,
     tae,
     emitter,
     cloudsTimer;
+
+function theDreEffect() {
+    emitter = game.add.emitter(0, 0, 500);
+    emitter.makeParticles('dre');
+    emitter.gravity = 10;
+    emitter.start(true, 3000, 0, 10);
+}
 function create() {
     // Draw bg
     bg = game.add.graphics(0, 0);
@@ -117,11 +124,6 @@ function create() {
     invs = game.add.group();
     // Add a big pack here...
     bigpack=game.add.sprite(150, 230, 'bigpack');
-
-    emitter = game.add.emitter(0, 0, 200);
-    emitter.makeParticles('dre');
-    emitter.gravity = 5;
-    emitter.start(true, 2000, 0, 10);
 
     // Add birdie
     birdie = game.add.sprite(0, 0, 'birdie');
@@ -230,7 +232,6 @@ function reset() {
     gameStarted = false;
     gameOver = false;
     score = 0;
-    //credits.renderable = true;
     titleText.setText("\n\nDragon x Starbucks\n\nTHE\nCOFF33\nSLAY3R");
     instText.setText("TOUCH TO\nFLAP WINGS");
     titleText.renderable = true;
@@ -348,6 +349,7 @@ function addScore(_, inv) {
     invs.remove(inv); // This removes the pack after getting it
     score += 1;
     scoreText.setText(score  + " cups");
+    theDreEffect();
     scoreSnd.play();
 }
 
