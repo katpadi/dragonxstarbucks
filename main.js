@@ -42,11 +42,11 @@ var game = new Phaser.Game(
 function preload() {
     var assets = {
         spritesheet: {
-            birdie: ['assets/bagongdragon2.png', 48, 40],
+            birdie: ['assets/bagongdragon.png', 48, 40],
             clouds: ['assets/clouds.png', 128, 64]
         },
         image: {
-            bigpack: ['assets/bigpack.jpg'],
+            bigpack: ['assets/bigpack.png'],
             winpack: ['assets/sb.png'],
             tower:   ['assets/tower.png'],
             fence:   ['assets/fence.png']
@@ -114,7 +114,7 @@ function create() {
     // Add invisible thingies
     invs = game.add.group();
     // Add a big pack here...
-    bigpack=game.add.sprite(150, 250, 'bigpack');
+    bigpack=game.add.sprite(150, 230, 'bigpack');
 
     // Add birdie
     birdie = game.add.sprite(0, 0, 'birdie');
@@ -163,10 +163,10 @@ function create() {
         game.world.height / 5,
         "",
         {
-            font: '20px "Press Start 2P"',
-            fill: '#000000',
-            stroke: '#2dcc70',
-            strokeThickness: 4,
+            font: '15px "Press Start 2P"',
+            fill: '#04529C',
+            stroke: '#FFCC33',
+            strokeThickness: 8,
             align: 'center'
         }
     );
@@ -194,9 +194,9 @@ function create() {
         "",
         {
             font: '23px "Press Start 2P"',
-            fill: '#000000',
-            stroke: '#2dcc70',
-            strokeThickness: 4,
+            fill: '#04529C',
+            stroke: '#FFCC33',
+            strokeThickness: 8,
             align: 'center'
         }
     );
@@ -224,7 +224,7 @@ function reset() {
     gameOver = false;
     score = 0;
     //credits.renderable = true;
-    titleText.setText("\n\nWinston\nExtreme Mint\n\nChoose\nThe\nBetter Black");
+    titleText.setText("\n\nDragon x Starbucks\n\nThe\nCoffee\nSlayer");
     instText.setText("TOUCH TO\nFLAP WINGS");
     titleText.renderable = true;
     bigpack.renderable = true;
@@ -248,7 +248,7 @@ function start() {
     towersTimer.start();
     towersTimer.add(2);
     // Show score
-    scoreText.setText(score);
+    scoreText.setText(score + " cups");
     instText.renderable = false;
     titleText.renderable = false;
     bigpack.renderable = false;
@@ -340,7 +340,7 @@ function spawnTowers() {
 function addScore(_, inv) {
     invs.remove(inv); // This removes the pack after getting it
     score += 1;
-    scoreText.setText(score);
+    scoreText.setText(score  + " cups");
     scoreSnd.play();
 }
 
@@ -349,14 +349,6 @@ function setGameOver() {
 
     instText.setText("TAP DRAGON\nTO TRY AGAIN");
     instText.renderable = true;
-    /*
-    var hiscore = window.localStorage.getItem('hiscore');
-    hiscore = hiscore ? hiscore : score;
-    hiscore = score > parseInt(hiscore, 10) ? score : hiscore;
-    window.localStorage.setItem('hiscore', hiscore);
-    */
-    //highScoreText.setText("HIGHSCORE\n" + hiscore);
-    // Just your score for now
 
     highScoreText.setText("FINAL SCORE\n ");
     highScoreText.renderable = true; //dont show high score
