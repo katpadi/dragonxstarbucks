@@ -91,6 +91,21 @@ var gameStarted,
     cloudsTimer;
 
 function theDreEffect() {
+
+    boomText = game.add.text(
+            game.world.width / 2,
+            game.world.height / 3,
+            "",
+            {
+                font: '16px "Press Start 2P"',
+                fill: '#ff000',
+                stroke: '#000',
+                strokeThickness: 4,
+                align: 'center'
+            }
+        );
+    boomText.setText("THE DRE EFFECT!!!");
+
     emitter = game.add.emitter(0, 0, 500);
     emitter.makeParticles('dre');
     emitter.gravity = 10;
