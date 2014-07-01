@@ -90,11 +90,13 @@ var gameStarted,
     boom, // To do :(
     emitter,
     cloudsTimer,
+    dreTimer,
     shakeWorld = 0,
     shakeWorldMax = 8,
     shakeWorldTime = 0,
     shakeWorldTimeMax = 30;
 
+// Poop every Starbucks cup
 function boomTae() {
     boom = game.add.emitter(birdie.x-10, birdie.y+10);
     boom.makeParticles('tae');
@@ -103,7 +105,14 @@ function boomTae() {
     boom.gravity = 5;
     boom.start(true, 3000, 15);
 }
+
 function theDreEffect() {
+
+    boomSnd.play();
+    dreTimer.stop();
+
+    // QUAKE!
+    shakeWorldTime = shakeWorldTimeMax;
 
     emitter = game.add.emitter(0, 0, 500);
     emitter.makeParticles('dre');
@@ -114,7 +123,10 @@ function theDreEffect() {
     emitter.minParticleScale = 0.5;
     emitter.start(true, 3000, 0, 50);
 
-    shakeWorldTime = shakeWorldTimeMax;
+    dreTimer.start();
+
+    // When to have DEBRIS
+    dreTimer.add((Math.floor(Math.random() * 10 ) + 3) * Math.random());
 }
 function create() {
     // Draw bg
@@ -122,20 +134,7 @@ function create() {
     bg.beginFill(0xCCEEFF, 1);
     bg.drawRect(0, 0, game.world.width, game.world.height);
     bg.endFill();
-    // Credits 'yo
-    // Wait lang steve!
-    /*
-    credits = game.add.text(
-        game.world.width / 2,
-        10,
-        'marksteve.com/dtmb\n@themarksteve',
-        {
-            font: '8px "Press Start 2P"',
-            fill: '#fff',
-            align: 'center'
-        }
-    ); */
-    //credits.anchor.x = 0.5;
+
     // Add clouds group
     clouds = game.add.group();
     // Add towers
@@ -237,6 +236,8 @@ function create() {
     flapSnd = game.add.audio('flap');
     scoreSnd = game.add.audio('score');
     hurtSnd = game.add.audio('hurt');
+    boomSnd = game.add.audio('hurt');
+
     // Add controls
     game.input.onDown.add(flap);
     // Start clouds timer
@@ -244,6 +245,12 @@ function create() {
     cloudsTimer.onEvent.add(spawnCloud);
     cloudsTimer.start();
     cloudsTimer.add(Math.random());
+
+    dreTimer = new Phaser.Timer(game);
+    dreTimer.onEvent.add(theDreEffect);
+    dreTimer.start();
+    dreTimer.add(Math.random());
+
     // RESET!
     reset();
 }
@@ -367,12 +374,8 @@ function spawnTowers() {
 
 function addScore(_, inv) {
     invs.remove(inv); // This removes the pack after getting it
-
     boomTae();
-
     score += 1;
-    // MAKE IT SHAKE!!!
-    theDreEffect(inv);
     scoreText.setText(score + " cups");
     scoreSnd.play();
 }
@@ -397,6 +400,10 @@ function setGameOver() {
     });
     // Stop spawning towers
     towersTimer.stop();
+
+    // Stop Dre-ing
+    dreTimer.stop();
+
     // Make birdie reset the game
     birdie.events.onInputDown.addOnce(reset);
     hurtSnd.play();
@@ -482,6 +489,8 @@ function update() {
     );
     // Update clouds timer
     cloudsTimer.update();
+    dreTimer.update();
+
     // Remove offscreen clouds
     clouds.forEachAlive(function(cloud) {
         if (cloud.x + cloud.width < game.world.bounds.left) {
