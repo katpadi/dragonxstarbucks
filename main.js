@@ -261,6 +261,7 @@ function reset() {
     score = 0;
     titleText.setText("\n\nDragon x Starbucks\n\nTHE\nCOFF33\nSLAY3R");
     instText.setText("TOUCH TO\nFLAP WINGS");
+    scoreText.renderable = false;
     titleText.renderable = true;
     bigpack.renderable = true;
     highScoreText.renderable = false;
@@ -282,8 +283,16 @@ function start() {
     towersTimer.onEvent.add(spawnTowers);
     towersTimer.start();
     towersTimer.add(2);
+
+    // Throw dre after resetting...
+    dreTimer = new Phaser.Timer(game);
+    dreTimer.onEvent.add(theDreEffect);
+    dreTimer.start();
+    dreTimer.add(Math.random());
+
     // Show score
     scoreText.setText(score + " cups");
+    scoreText.renderable = true;
     instText.renderable = false;
     titleText.renderable = false;
     bigpack.renderable = false;
