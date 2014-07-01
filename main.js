@@ -49,6 +49,7 @@ function preload() {
             bigpack: ['assets/bigpack.png'],
             winpack: ['assets/sb.png'],
             dre: ['assets/dre.jpg'],
+            tae: ['assets/tae.png'],
             tower:   ['assets/tower.png'],
             fence:   ['assets/fence.png']
         },
@@ -86,19 +87,32 @@ var gameStarted,
     scoreSnd,
     hurtSnd,
     towersTimer,
-    tae, // To do :(
+    boom, // To do :(
     emitter,
     cloudsTimer,
     shakeWorld = 0,
-    shakeWorldMax = 18,
+    shakeWorldMax = 8,
     shakeWorldTime = 0,
-    shakeWorldTimeMax = 40;
+    shakeWorldTimeMax = 30;
 
+function boomTae() {
+    boom = game.add.emitter(birdie.x-10, birdie.y+10);
+    boom.makeParticles('tae');
+    boom.maxParticleSpeed.setTo(100, 200);
+    boom.setXSpeed(0,-200);
+    boom.gravity = 5;
+    boom.start(true, 3000, 15);
+}
 function theDreEffect() {
+
     emitter = game.add.emitter(0, 0, 500);
     emitter.makeParticles('dre');
     emitter.gravity = 10;
-    emitter.start(true, 3000, 0, 10);
+    emitter.setRotation(-100, 100);
+    emitter.setXSpeed(0,200);
+    emitter.maxParticleScale = 1;
+    emitter.minParticleScale = 0.5;
+    emitter.start(true, 3000, 0, 50);
 
     shakeWorldTime = shakeWorldTimeMax;
 }
@@ -353,9 +367,12 @@ function spawnTowers() {
 
 function addScore(_, inv) {
     invs.remove(inv); // This removes the pack after getting it
+
+    boomTae();
+
     score += 1;
     // MAKE IT SHAKE!!!
-    theDreEffect();
+    theDreEffect(inv);
     scoreText.setText(score + " cups");
     scoreSnd.play();
 }
