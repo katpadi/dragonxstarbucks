@@ -1,9 +1,11 @@
+```
 ________               _________
 \______ \   ___  ___  /   _____/
  |    |  \  \  \/  /  \_____  \
  |    `   \  >    <   /        \
 /_______  / /__/\_ \ /_______  /
         \/        \/         \/
+```
 
 # DxS: The Coffee Slayer
 A clone of a clone (cloneception?): A clone of the game Heavy Bird which is a clone of the widely-popular game Flappy Bird. The only difference is that it doesn't score up when you get pass a tower. It scores++ when you collect Starbucks drinks. Oh, and it uses a dragon instead of bird.
