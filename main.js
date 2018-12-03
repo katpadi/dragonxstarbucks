@@ -48,7 +48,7 @@ function preload() {
         image: {
             bigpack: ['assets/bigpack.png'],
             winpack: ['assets/sb.png'],
-            dre: ['assets/dre.jpg'],
+            dre: ['assets/splinter.png'],
             tae: ['assets/tae.png'],
             tower:   ['assets/tower.png'],
             fence:   ['assets/fence.png']
@@ -103,6 +103,7 @@ function boomTae() {
     boom.maxParticleSpeed.setTo(100, 200);
     boom.setXSpeed(0,-200);
     boom.gravity = 5;
+    boom.maxParticleScale = 0.30;
     boom.start(true, 3000, 15);
 }
 
@@ -118,15 +119,15 @@ function theDreEffect() {
     emitter.makeParticles('dre');
     emitter.gravity = 10;
     emitter.setRotation(-100, 100);
-    emitter.setXSpeed(0,200);
-    emitter.maxParticleScale = 1;
-    emitter.minParticleScale = 0.5;
+    emitter.setXSpeed(0,300);
+    emitter.maxParticleScale = 0.35;
+    emitter.minParticleScale = 0.25;
     emitter.start(true, 3000, 0, 50);
 
     dreTimer.start();
 
     // When to have DEBRIS
-    dreTimer.add((Math.floor(Math.random() * 10 ) + 3) * Math.random());
+    dreTimer.add((Math.floor(Math.random() * 20 ) + 3) * Math.random());
 }
 function create() {
     // Draw bg
